@@ -1,11 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { NativeNavigation } from './navigators/NativeNavigation';
+import AppProvider from './store/AppContext';
 
 export default function App() {
   return (
     <>
-      <StatusBar style="auto" />
-      <NativeNavigation />
+      <AppProvider>
+        <StatusBar style="auto" />
+        <NativeNavigation />
+      </AppProvider>
     </>
   );
 }

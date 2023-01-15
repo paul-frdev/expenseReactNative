@@ -8,17 +8,18 @@ interface ExpenseItemProps {
   description: string;
   amount: number;
   date: Date;
+  id?: string;
 }
 
-const ExpenseItem = ({ description, amount, date }: ExpenseItemProps) => {
+const ExpenseItem = ({ description, amount, date, id }: ExpenseItemProps) => {
 
   const navigation = useNavigation<any>();
-
+  
   const expressPressHandler = () => {
-    navigation.navigate("ManageExpense")
+    navigation.navigate("ManageExpense", { expenseId: id })
   }
   return (
-    <Pressable onPress={expressPressHandler} style={({pressed}) => pressed && styles.pressed}>
+    <Pressable onPress={expressPressHandler} style={({ pressed }) => pressed && styles.pressed}>
       <View style={styles.container}>
         <View>
           <Text style={[styles.textBase, styles.description]}>{description}</Text>

@@ -3,17 +3,23 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ManageExpense from '../screens/ManageExpense';
 import BottomTabsNavigation from './BottomTabsNavigation';
+import { GlobalStyles } from '../constants';
 
 const NativeStack = createNativeStackNavigator<RootStackParamList>();
 
 export const NativeNavigation = () => {
   return (
     <NavigationContainer>
-      <NativeStack.Navigator>
+      <NativeStack.Navigator screenOptions={{
+        headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
+        headerTintColor: "#fff"
+      }}>
         <NativeStack.Screen name="BottomNavigation" component={BottomTabsNavigation} options={{
           headerShown: false
         }} />
-        <NativeStack.Screen name="ManageExpense" component={ManageExpense} />
+        <NativeStack.Screen name="ManageExpense" component={ManageExpense} options={{
+          presentation: "modal"
+        }}/>
       </NativeStack.Navigator>
     </NavigationContainer>
   )
