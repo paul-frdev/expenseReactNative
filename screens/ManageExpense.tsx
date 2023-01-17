@@ -12,8 +12,6 @@ const ManageExpense = ({ route, navigation }: RootStackParamListRoute) => {
   const { dispatch } = React.useContext(AppContext);
   const [editedId, setEditedId] = React.useState<any>();
 
-  console.log(editedId);
-
   React.useEffect(() => {   
     if (route.params) {
       setEditedId(route.params.expenseId);

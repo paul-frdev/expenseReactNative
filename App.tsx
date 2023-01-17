@@ -6,7 +6,7 @@ export default function App() {
   return (
     <>
       <AppProvider>
-        <StatusBar style="auto" />
+        <StatusBar style="light" />
         <NativeNavigation />
       </AppProvider>
     </>

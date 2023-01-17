@@ -53,9 +53,6 @@ export const expenseReducer = (
     case ActionKind.DELETE:
       return [
         ...state.filter((expense: ExpenseType) => {
-          console.log(expense.id);
-          console.log(action.payload.id);
-
           return expense.id !== action.payload.id;
         }),
       ];

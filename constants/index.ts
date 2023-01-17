@@ -46,28 +46,4 @@ export const DUMMY_EXPENSES = [
     amount: 19.99,
     date: new Date("2023-01-09"),
   },
-  {
-    id: 6,
-    description: "A pair of shows",
-    amount: 90.99,
-    date: new Date("2022-06-19"),
-  },
-  {
-    id: 7,
-    description: "A pair of shows",
-    amount: 89.99,
-    date: new Date("2022-08-19"),
-  },
-  {
-    id: 8,
-    description: "A pair of shows",
-    amount: 100.99,
-    date: new Date("2022-06-19"),
-  },
-  {
-    id: 9,
-    description: "A pair of shows",
-    amount: 21.99,
-    date: new Date("2022-10-19"),
-  },
 ];
