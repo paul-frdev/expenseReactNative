@@ -17,30 +17,57 @@ export const GlobalStyles = {
 
 export const DUMMY_EXPENSES = [
   {
-    id: 0, description: "A pair of shows", amount: 59.99, date: new Date("2021-12-19")
+    id: 1,
+    description: "A pair of shows",
+    amount: 59.99,
+    date: new Date("2023-01-12"),
   },
   {
-    id: 1, description: "Some fruits", amount: 29.99, date: new Date("2021-11-19")
+    id: 2,
+    description: "Some fruits",
+    amount: 29.99,
+    date: new Date("2023-01-13"),
   },
   {
-    id: 2, description: "book", amount: 39.99, date: new Date("2021-09-19")
+    id: 3,
+    description: "book",
+    amount: 39.99,
+    date: new Date("2023-01-11"),
   },
   {
-    id: 3, description: "A pair of shows", amount: 43.99, date: new Date("2021-01-19")
+    id: 4,
+    description: "A pair of shows",
+    amount: 43.99,
+    date: new Date("2023-01-10"),
   },
   {
-    id: 4, description: "A pair of shows", amount: 19.99, date: new Date("2021-05-19")
+    id: 5,
+    description: "A pair of shows",
+    amount: 19.99,
+    date: new Date("2023-01-09"),
   },
   {
-    id: 5, description: "A pair of shows", amount: 90.99, date: new Date("2021-06-19")
+    id: 6,
+    description: "A pair of shows",
+    amount: 90.99,
+    date: new Date("2022-06-19"),
   },
   {
-    id: 6, description: "A pair of shows", amount: 89.99, date: new Date("2021-08-19")
+    id: 7,
+    description: "A pair of shows",
+    amount: 89.99,
+    date: new Date("2022-08-19"),
   },
   {
-    id: 7, description: "A pair of shows", amount: 100.99, date: new Date("2021-06-19")
+    id: 8,
+    description: "A pair of shows",
+    amount: 100.99,
+    date: new Date("2022-06-19"),
   },
   {
-    id: 8, description: "A pair of shows", amount: 21.99, date: new Date("2021-10-19")
+    id: 9,
+    description: "A pair of shows",
+    amount: 21.99,
+    date: new Date("2022-10-19"),
   },
-]
+];

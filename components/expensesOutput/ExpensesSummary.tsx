@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { GlobalStyles } from '../../constants';
+import { ExpenseType } from '../../types/expense';
 
 interface ExpensesSummaryProps {
   periodName: string;
-  expenses: object[];
+  expenses: ExpenseType[] | undefined;
 }
 
 const ExpensesSummary = ({ periodName, expenses }: ExpensesSummaryProps) => {
-  const expensesSum = expenses.reduce((sum: any, currentItem: any) => {
+  const expensesSum = expenses?.reduce((sum: any, currentItem: any) => {
     return sum + currentItem.amount;
   }, 0);
 

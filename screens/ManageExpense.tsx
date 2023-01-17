@@ -1,23 +1,29 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Button from '../components/UI/Button';
 import IconButton from '../components/UI/IconButton';
 import { GlobalStyles } from '../constants';
+import { AppContext } from '../store/AppContext';
+import { ActionKind } from '../types/expense';
+import { RootStackParamListRoute } from '../types/navigation';
 
-interface ManageExpenseProps {
-  id?: string;
-}
+const ManageExpense = ({ route, navigation }: RootStackParamListRoute) => {
+  const { dispatch } = React.useContext(AppContext);
+  const [editedId, setEditedId] = React.useState<any>();
 
-const ManageExpense = () => {
-  const route = useRoute<any>();
-  const navigation = useNavigation<any>();
+  console.log(editedId);
 
-  const editedId = route.params;
+  React.useEffect(() => {   
+    if (route.params) {
+      setEditedId(route.params.expenseId);
+    }
+  }, [route.params])
 
   const isEditing = !!editedId;
-
+  
   const deleteExpenseHandler = () => {
+    dispatch({ type: ActionKind.DELETE, payload: { id: editedId } })
     navigation.goBack();
   }
 
@@ -26,6 +32,26 @@ const ManageExpense = () => {
   }
 
   const confirmHandler = () => {
+    if (isEditing) {
+      dispatch({
+        type: ActionKind.UPDATE, payload: {
+          currentId: editedId,
+          id: editedId,
+          description: 'UpdateTest',
+          amount: 51.99,
+          date: new Date('2023-01-16')
+        }
+      })
+    } else {
+      dispatch({
+        type: ActionKind.ADD, payload: {
+          id: Math.round(Math.random() * 1000),
+          description: 'AddTest',
+          amount: 51.99,
+          date: new Date('2023-01-16')
+        }
+      })
+    }
     navigation.goBack();
   }
 

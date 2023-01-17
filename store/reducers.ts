@@ -1,4 +1,4 @@
-import { ExpenseType } from "../types/expense";
+import { ActionKind, ExpenseType } from "../types/expense";
 
 type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
@@ -10,12 +10,6 @@ type ActionMap<M extends { [index: string]: any }> = {
         payload: M[Key];
       };
 };
-
-export enum ActionKind {
-  ADD = "ADD",
-  DELETE = "DELETE",
-  UPDATE = "UPDATE",
-}
 
 export type InitialExpenseStateType = {
   expenses: ExpenseType[];
@@ -32,8 +26,11 @@ type ExpensePayload = {
     id: number;
   };
   [ActionKind.UPDATE]: {
+    currentId?: number;
     id: number;
-    data: ExpenseType;
+    description: string;
+    amount: number;
+    date: Date;
   };
 };
 
@@ -46,24 +43,28 @@ export const expenseReducer = (
 ) => {
   switch (action.type) {
     case ActionKind.ADD:
-      const id = Math.round(Math.random() * 10000);
+      const id: number = Math.round(Math.random() * 10000);
       return [
-        ...state,
         {
-          id: id,
-          description: action.payload.description,
-          amount: action.payload.amount,
-          date: action.payload.date,
+          ...action.payload
         },
+        ...state,
       ];
     case ActionKind.DELETE:
-      return [...state.filter((expense: ExpenseType) => expense.id !== action.payload.id)];
+      return [
+        ...state.filter((expense: ExpenseType) => {
+          console.log(expense.id);
+          console.log(action.payload.id);
+
+          return expense.id !== action.payload.id;
+        }),
+      ];
     case ActionKind.UPDATE:
       const updatableExpenseIndex = state.findIndex(
-        (expense: ExpenseType) => expense.id === action.payload.id
+        (expense: ExpenseType) => expense.id === action.payload.currentId
       );
       const updatableExpense = state[updatableExpenseIndex];
-      const updatableItem = { ...updatableExpense, ...action.payload.data };
+      const updatableItem = { ...updatableExpense, ...action.payload.date };
       const updatableExpenses = [...state];
       updatableExpenses[updatableExpenseIndex] = updatableItem;
       return updatableExpenses;

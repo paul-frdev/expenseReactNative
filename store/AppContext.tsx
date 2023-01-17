@@ -1,4 +1,5 @@
 import React, { createContext, Dispatch, ReactNode, useReducer } from "react";
+import { DUMMY_EXPENSES } from '../constants';
 import { ExpenseType } from '../types/expense';
 import { ExpenseActions, expenseReducer } from './reducers';
 
@@ -11,7 +12,7 @@ export type InitialExpenseStateType = {
 };
 
 const defaultState = {
-  expenses: [],
+  expenses: DUMMY_EXPENSES,
 }
 
 export const AppContext = createContext<{
@@ -28,6 +29,7 @@ const mainReducer = ({ expenses }: InitialExpenseStateType, actions: ExpenseActi
 
 const AppProvider = ({ children }: ExpenseProviderProps) => {
   const [state, dispatch] = useReducer(mainReducer, defaultState);
+
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       {children}

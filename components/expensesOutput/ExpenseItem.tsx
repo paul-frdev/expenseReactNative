@@ -2,16 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 import { GlobalStyles } from '../../constants';
+import { ExpenseType } from '../../types/expense';
 import { getFormattedDate } from '../../utils/date';
 
-interface ExpenseItemProps {
-  description: string;
-  amount: number;
-  date: Date;
-  id?: string;
-}
 
-const ExpenseItem = ({ description, amount, date, id }: ExpenseItemProps) => {
+const ExpenseItem = ({ description, amount, date, id }: ExpenseType) => {
 
   const navigation = useNavigation<any>();
   

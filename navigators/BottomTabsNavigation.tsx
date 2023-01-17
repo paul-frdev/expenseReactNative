@@ -2,11 +2,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { GlobalStyles } from '../constants';
 import AllExpenses from '../screens/AllExpenses';
 import RecentExpenses from '../screens/RecentExpenses';
-import { StackParamList } from '../types/navigation';
+import { BottomStackParamList } from '../types/navigation';
 import { Ionicons } from "@expo/vector-icons";
 import IconButton from '../components/UI/IconButton';
 
-const BottomTabsStack = createBottomTabNavigator<StackParamList>();
+const BottomTabsStack = createBottomTabNavigator<BottomStackParamList>();
 
 const BottomTabsNavigation = () => {
   return (

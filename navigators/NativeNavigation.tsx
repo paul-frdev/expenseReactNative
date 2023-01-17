@@ -14,12 +14,10 @@ export const NativeNavigation = () => {
         headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
         headerTintColor: "#fff"
       }}>
-        <NativeStack.Screen name="BottomNavigation" component={BottomTabsNavigation} options={{
-          headerShown: false
-        }} />
+        <NativeStack.Screen name="BottomTabs" component={BottomTabsNavigation} />
         <NativeStack.Screen name="ManageExpense" component={ManageExpense} options={{
           presentation: "modal"
-        }}/>
+        }} />
       </NativeStack.Navigator>
     </NavigationContainer>
   )

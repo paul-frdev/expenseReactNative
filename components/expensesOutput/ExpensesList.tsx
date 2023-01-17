@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, FlatList } from 'react-native';
+import { ExpenseType } from '../../types/expense';
 import ExpenseItem from './ExpenseItem';
 
 interface ExpensesListProps {
-  expenses: object[];
+  expenses: ExpenseType[] | undefined;
 }
 
 const ExpensesList = ({ expenses }: ExpensesListProps) => {
