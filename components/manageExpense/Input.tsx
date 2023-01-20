@@ -13,19 +13,23 @@ interface InfoConfigProps {
   value?: any;
 }
 interface InputProps {
+  inValid?: boolean;
   label: string;
   style?: object;
   textInfoConfig: InfoConfigProps;
 }
-export const Input = ({ label, textInfoConfig, style }: InputProps) => {
+export const Input = ({ label, textInfoConfig, style, inValid }: InputProps) => {
   const inputStyles: any = [styles.textInput];
-  if(textInfoConfig && textInfoConfig.multiline) {
-     inputStyles.push(styles.inputMultiline);
+  if (textInfoConfig && textInfoConfig.multiline) {
+    inputStyles.push(styles.inputMultiline);
+  }
+  if (inValid) {
+    inputStyles.push(styles.inValidInput);
   }
   return (
     <View style={[styles.inputContainer, style]}>
-      <Text style={styles.label}>{label}</Text>
-      <TextInput {...textInfoConfig} style={inputStyles}/>
+      <Text style={[styles.label, inValid && styles.inValidLabel]}>{label}</Text>
+      <TextInput {...textInfoConfig} style={inputStyles} />
     </View>
   )
 }
@@ -45,10 +49,17 @@ const styles = StyleSheet.create({
     padding: 6,
     borderRadius: 6,
     fontSize: 18,
+    fontWeight: "700",
     color: GlobalStyles.colors.primary700
   },
   inputMultiline: {
     minHeight: 100,
     textAlignVertical: "top"
+  },
+  inValidLabel: {
+    color: GlobalStyles.colors.error500
+  },
+  inValidInput: {
+    backgroundColor: GlobalStyles.colors.error50
   }
 })

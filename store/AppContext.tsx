@@ -1,5 +1,5 @@
 import React, { createContext, Dispatch, ReactNode, useReducer } from "react";
-import { DUMMY_EXPENSES } from '../constants';
+// import { DUMMY_EXPENSES } from '../constants';
 import { ExpenseType } from '../types/expense';
 import { ExpenseActions, expenseReducer } from './reducers';
 
@@ -12,7 +12,7 @@ export type InitialExpenseStateType = {
 };
 
 const defaultState = {
-  expenses: DUMMY_EXPENSES,
+  expenses: [],
 }
 
 export const AppContext = createContext<{

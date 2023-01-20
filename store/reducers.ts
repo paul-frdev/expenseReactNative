@@ -27,7 +27,7 @@ type ExpensePayload = {
   };
   [ActionKind.UPDATE]: {
     currentId?: number;
-    id: number;
+    id?: number;
     description: string;
     amount: number;
     date: Date;
@@ -43,7 +43,6 @@ export const expenseReducer = (
 ) => {
   switch (action.type) {
     case ActionKind.ADD:
-      const id: number = Math.round(Math.random() * 10000);
       return [
         {
           ...action.payload

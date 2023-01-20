@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ExpenseForm } from '../components/manageExpense/ExpenseForm';
-import Button from '../components/UI/Button';
-import IconButton from '../components/UI/IconButton';
 import { GlobalStyles } from '../constants';
 import { AppContext } from '../store/AppContext';
-import { ActionKind } from '../types/expense';
+import { ActionKind, ValuesProps } from '../types/expense';
 import { RootStackParamListRoute } from '../types/navigation';
 
+import IconButton from '../components/UI/IconButton';
+
+
 const ManageExpense = ({ route, navigation }: RootStackParamListRoute) => {
-  const { dispatch } = React.useContext(AppContext);
+  const { dispatch, state } = React.useContext(AppContext);
   const [editedId, setEditedId] = React.useState<any>();
 
   React.useEffect(() => {
@@ -20,6 +21,8 @@ const ManageExpense = ({ route, navigation }: RootStackParamListRoute) => {
 
   const isEditing = !!editedId;
 
+  const selectedExpense = state.expenses.find((expense) => expense.id === editedId)
+  
   const deleteExpenseHandler = () => {
     dispatch({ type: ActionKind.DELETE, payload: { id: editedId } })
     navigation.goBack();
@@ -29,24 +32,24 @@ const ManageExpense = ({ route, navigation }: RootStackParamListRoute) => {
     navigation.goBack();
   }
 
-  const confirmHandler = (expenseData: any) => {
+  const confirmHandler = (expenseData: ValuesProps) => {
     if (isEditing) {
       dispatch({
         type: ActionKind.UPDATE, payload: {
           currentId: editedId,
-          id: editedId,
-          description: 'UpdateTest',
-          amount: 51.99,
-          date: new Date('2023-01-16')
+          id: expenseData?.id,
+          description: expenseData.description,
+          amount: expenseData.amount,
+          date: expenseData.date
         }
       })
     } else {
       dispatch({
         type: ActionKind.ADD, payload: {
           id: Math.round(Math.random() * 1000),
-          description: 'AddTest',
-          amount: 51.99,
-          date: new Date('2023-01-16')
+          description: expenseData.description,
+          amount: expenseData.amount,
+          date: expenseData.date
         }
       })
     }
@@ -63,6 +66,7 @@ const ManageExpense = ({ route, navigation }: RootStackParamListRoute) => {
     <View style={styles.container}>
       <ExpenseForm
         isEditing={isEditing}
+        defaultValues={selectedExpense}
         onCancel={cancelHandler}
         onSubmit={confirmHandler}
       />
