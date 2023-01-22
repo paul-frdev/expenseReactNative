@@ -1,5 +1,5 @@
 import { Alert, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Input } from './Input'
 import Button from '../UI/Button';
 import { ExpenseType } from '../../types/expense';
@@ -19,20 +19,25 @@ interface ExpenseFormProps {
 }
 
 export const ExpenseForm = ({ isEditing, onCancel, onSubmit, defaultValues }: ExpenseFormProps) => {
-  const [inputs, setInputs] = useState<any>({
-    amount: {
-      value: defaultValues ? defaultValues.amount : "",
-      isValid: true
-    },
-    date: {
-      value: defaultValues ? defaultValues.date.toISOString().slice(0, 10) : "",
-      isValid: true
-    },
-    description: {
-      value: defaultValues ? defaultValues.description : "",
-      isValid: true
-    }
-  });
+
+  const [inputs, setInputs] = useState<Props>();
+  
+  useEffect(() => {
+      setInputs({
+        amount: {
+          value: defaultValues?.amount || "",
+          isValid: true
+        },
+        date: {
+          value: defaultValues?.date.toISOString().slice(0, 10) || "",
+          isValid: true
+        },
+        description: {
+          value: defaultValues?.description || "",
+          isValid: true
+        }
+      });
+  }, [defaultValues]);
 
   const inputChangedHandler = (inputIdentifier: string, enteredText: string) => {
     setInputs((currentInputs: any) => {
@@ -45,21 +50,20 @@ export const ExpenseForm = ({ isEditing, onCancel, onSubmit, defaultValues }: Ex
 
   const submitHandler = () => {
     const expenseData: ExpenseType = {
-      amount: +inputs.amount.value,
-      date: new Date(inputs.date.value),
-      description: inputs.description.value
+      amount: +inputs?.amount.value,
+      date: new Date(inputs?.date.value),
+      description: inputs?.description.value
     };
 
     const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
-    const dateIsValid = !Date.parse(expenseData.date as any);
+    const dateIsValid = Date.parse(expenseData.date as any);
     const descriptionIsValid = expenseData.description && expenseData.description.trim().length > 0;
 
-    if (!amountIsValid || dateIsValid || !descriptionIsValid) {
-      // show feedback
+    if (!amountIsValid || !dateIsValid || !descriptionIsValid) {
       setInputs((currentInputs: any) => {
         return {
-          amount: { value: currentInputs.amount.value, isValid: amountIsValid },
           date: { value: currentInputs.date.value, isValid: dateIsValid },
+          amount: { value: currentInputs.amount.value, isValid: amountIsValid },
           description: { value: currentInputs.description.value, isValid: descriptionIsValid }
         }
       })
@@ -68,7 +72,7 @@ export const ExpenseForm = ({ isEditing, onCancel, onSubmit, defaultValues }: Ex
     onSubmit?.(expenseData);
   }
 
-  const formIsInValid = !inputs.amount.isValid || !inputs.date.isValid || !inputs.description.isValid;
+  const formIsInValid = !inputs?.amount.isValid || !inputs?.date.isValid || !inputs?.description.isValid;
   return (
     <View style={styles.form}>
       <Text style={styles.title}>Your Expense</Text>
@@ -76,34 +80,34 @@ export const ExpenseForm = ({ isEditing, onCancel, onSubmit, defaultValues }: Ex
         <Input
           style={styles.rowInput}
           label="Amount"
-          inValid={!inputs.amount.isValid}
+          inValid={!inputs?.amount.isValid}
           textInfoConfig={{
             KeyboardType: 'decimal-pad',
             onChangeText: inputChangedHandler.bind(this, "amount"),
-            value: inputs['amount'].value
+            value: inputs?.amount.value.toString()
           }}
         />
         <Input
           style={styles.rowInput}
           label="Date"
-          inValid={inputs.date.isValid}
+          inValid={!inputs?.date.isValid}
           textInfoConfig={{
             placeholder: "YYYY-MM-DD",
             maxLength: 10,
             onChangeText: inputChangedHandler.bind(this, "date"),
-            value: inputs["date"].value
+            value: inputs?.date.value
           }}
         />
       </View>
       <Input
         label="Description"
-        inValid={!inputs.description.isValid}
+        inValid={!inputs?.description.isValid}
         textInfoConfig={{
           multiline: true,
           numberOfLines: 3,
           autoCorrect: false,
           onChangeText: inputChangedHandler.bind(this, "description"),
-          value: inputs["description"].value
+          value: inputs?.description.value
         }}
       />
       {formIsInValid && <Text style={styles.errorText}>Invalid input values, please check your entered data</Text>}

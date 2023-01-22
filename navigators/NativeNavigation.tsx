@@ -14,7 +14,9 @@ export const NativeNavigation = () => {
         headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
         headerTintColor: "#fff"
       }}>
-        <NativeStack.Screen name="BottomTabs" component={BottomTabsNavigation} />
+        <NativeStack.Screen name="BottomTabs" component={BottomTabsNavigation} options={{
+          headerTitle: '',
+        }}/>
         <NativeStack.Screen name="ManageExpense" component={ManageExpense} options={{
           presentation: "modal"
         }} />

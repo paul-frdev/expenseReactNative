@@ -59,9 +59,11 @@ export const expenseReducer = (
       const updatableExpenseIndex = state.findIndex(
         (expense: ExpenseType) => expense.id === action.payload.currentId
       );
+      
       const updatableExpense = state[updatableExpenseIndex];
-      const updatableItem = { ...updatableExpense, ...action.payload.date };
+      const updatableItem = { ...updatableExpense, ...action.payload };
       const updatableExpenses = [...state];
+      console.log(updatableExpenses[updatableExpenseIndex] = updatableItem);
       updatableExpenses[updatableExpenseIndex] = updatableItem;
       return updatableExpenses;
     default:

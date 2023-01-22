@@ -22,7 +22,7 @@ const ManageExpense = ({ route, navigation }: RootStackParamListRoute) => {
   const isEditing = !!editedId;
 
   const selectedExpense = state.expenses.find((expense) => expense.id === editedId)
-  
+    
   const deleteExpenseHandler = () => {
     dispatch({ type: ActionKind.DELETE, payload: { id: editedId } })
     navigation.goBack();
@@ -34,10 +34,12 @@ const ManageExpense = ({ route, navigation }: RootStackParamListRoute) => {
 
   const confirmHandler = (expenseData: ValuesProps) => {
     if (isEditing) {
+      console.log(editedId);
+      
       dispatch({
         type: ActionKind.UPDATE, payload: {
           currentId: editedId,
-          id: expenseData?.id,
+          id: editedId,
           description: expenseData.description,
           amount: expenseData.amount,
           date: expenseData.date
